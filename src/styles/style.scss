@@ -1,0 +1,197 @@
+$main-text-color: #4f4f4f;
+$border-color: #4f4f4f;
+$border-radius: 1rem;
+$badge-translate-y: -2.5em;
+$hr-stroke: 10px;
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 1px;
+    min-height: 100%;
+    font-family: "Roboto", sans-serif;
+    color: $main-text-color;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+#root {
+    height: 1px;
+    min-height: 100%;
+}
+
+.app__container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 100%;
+
+    hr {
+        position: fixed;
+        top: 0;
+        width: $hr-stroke;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: #c4c4c4;
+        border: 0 solid black;
+    }
+}
+
+.layout-template {
+    position: relative;
+    aspect-ratio: 9 / 15;
+    width: clamp(300px, 20%, 50%);
+    margin-top: -$badge-translate-y/2;
+    padding: -$badge-translate-y/2;
+
+    &__badge {
+        position: absolute;
+        font-size: 0.875rem;
+        font-weight: 500;
+        width: 50%;
+        height: 50%;
+        margin: 0;
+        padding: 0.625em 1.5em;
+        border: 2px solid $border-color;
+        border-radius: $border-radius;
+        z-index: -1;
+        transform: translateY($badge-translate-y);
+    }
+
+    .image-display {
+        grid-area: upload;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        // border-radius: 1rem;
+        cursor: pointer;
+    }
+
+    .form {
+        grid-template-rows: 1.2rem minmax(5rem, 10rem) minmax(175px, auto) 30px;
+        grid-template-areas:
+            "title title"
+            "description description"
+            "upload upload"
+            ". button";
+
+        .image-display {
+            position: relative;
+            background-color: #e2b6a7;
+        }
+
+        label {
+            grid-area: upload;
+        }
+    }
+
+    .render {
+        grid-template-rows: 1.2rem minmax(5rem, 10rem) minmax(220px, auto);
+        grid-template-areas:
+            "title title"
+            "description description"
+            "upload upload";
+
+        .image-display {
+            background-color: #e1e1e1;
+        }
+    }
+
+    .form,
+    .render {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        gap: 15px;
+        height: 100%;
+        padding: 1em;
+        border: 2px solid $border-color;
+        border-radius: $border-radius;
+        background-color: white;
+
+        p {
+            margin: 0;
+        }
+
+        textarea {
+            font-family: inherit;
+            background-color: unset;
+            border: unset;
+            resize: none;
+            height: fit-content;
+            overflow: hidden;
+
+            &:focus {
+                outline: none;
+            }
+
+            &:hover {
+                overflow-y: auto;
+            }
+
+            &:focus::placeholder {
+                color: transparent;
+            }
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        button {
+            grid-area: button;
+            justify-self: end;
+            width: fit-content;
+            font-weight: bold;
+            color: #212121;
+            background-color: #e1e1e1;
+            border-radius: unset;
+            box-shadow: none;
+        }
+
+        .form__title,
+        .render__title {
+            height: 1.5em;
+            text-wrap: nowrap;
+            grid-area: title;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #c56e4f;
+        }
+
+        .form__description,
+        .render__description {
+            grid-area: description;
+            font-size: 1rem;
+            height: 100%;
+        }
+    }
+}
+
+@media (max-width: 750px) {
+    body {
+        height: unset;
+        overflow-y: auto;
+    }
+
+    .app__container {
+        flex-direction: column;
+
+        hr {
+            position: unset;
+            min-height: $hr-stroke;
+            width: 100vw;
+        }
+    }
+
+    .layout-template {
+        margin: 3em;
+        width: 300px;
+    }
+}

@@ -1,0 +1,177 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 1px;
+  min-height: 100%;
+  font-family: "Roboto", sans-serif;
+  color: #4f4f4f;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+#root {
+  height: 1px;
+  min-height: 100%;
+}
+
+.app__container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 100%;
+}
+.app__container hr {
+  position: fixed;
+  top: 0;
+  width: 10px;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #c4c4c4;
+  border: 0 solid black;
+}
+
+.layout-template {
+  position: relative;
+  aspect-ratio: 9/15;
+  width: clamp(300px, 20%, 50%);
+  margin-top: 1.25em;
+  padding: 1.25em;
+}
+.layout-template__badge {
+  position: absolute;
+  font-size: 0.875rem;
+  font-weight: 500;
+  width: 50%;
+  height: 50%;
+  margin: 0;
+  padding: 0.625em 1.5em;
+  border: 2px solid #4f4f4f;
+  border-radius: 1rem;
+  z-index: -1;
+  transform: translateY(-2.5em);
+}
+.layout-template .image-display {
+  grid-area: upload;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+}
+.layout-template .form {
+  grid-template-rows: 1.2rem minmax(5rem, 10rem) minmax(175px, auto) 30px;
+  grid-template-areas: "title title" "description description" "upload upload" ". button";
+}
+.layout-template .form .image-display {
+  position: relative;
+  background-color: #e2b6a7;
+}
+.layout-template .form label {
+  grid-area: upload;
+}
+.layout-template .render {
+  grid-template-rows: 1.2rem minmax(5rem, 10rem) minmax(220px, auto);
+  grid-template-areas: "title title" "description description" "upload upload";
+}
+.layout-template .render .image-display {
+  background-color: #e1e1e1;
+}
+.layout-template .form,
+.layout-template .render {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  height: 100%;
+  padding: 1em;
+  border: 2px solid #4f4f4f;
+  border-radius: 1rem;
+  background-color: white;
+}
+.layout-template .form p,
+.layout-template .render p {
+  margin: 0;
+}
+.layout-template .form textarea,
+.layout-template .render textarea {
+  font-family: inherit;
+  background-color: unset;
+  border: unset;
+  resize: none;
+  height: -moz-fit-content;
+  height: fit-content;
+  overflow: hidden;
+}
+.layout-template .form textarea:focus,
+.layout-template .render textarea:focus {
+  outline: none;
+}
+.layout-template .form textarea:hover,
+.layout-template .render textarea:hover {
+  overflow-y: auto;
+}
+.layout-template .form textarea:focus::-moz-placeholder, .layout-template .render textarea:focus::-moz-placeholder {
+  color: transparent;
+}
+.layout-template .form textarea:focus::placeholder,
+.layout-template .render textarea:focus::placeholder {
+  color: transparent;
+}
+.layout-template .form input[type=file],
+.layout-template .render input[type=file] {
+  display: none;
+}
+.layout-template .form button,
+.layout-template .render button {
+  grid-area: button;
+  justify-self: end;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-weight: bold;
+  color: #212121;
+  background-color: #e1e1e1;
+  border-radius: unset;
+  box-shadow: none;
+}
+.layout-template .form .form__title,
+.layout-template .form .render__title,
+.layout-template .render .form__title,
+.layout-template .render .render__title {
+  height: 1.5em;
+  text-wrap: nowrap;
+  grid-area: title;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #c56e4f;
+}
+.layout-template .form .form__description,
+.layout-template .form .render__description,
+.layout-template .render .form__description,
+.layout-template .render .render__description {
+  grid-area: description;
+  font-size: 1rem;
+  height: 100%;
+}
+
+@media (max-width: 750px) {
+  body {
+    height: unset;
+    overflow-y: auto;
+  }
+  .app__container {
+    flex-direction: column;
+  }
+  .app__container hr {
+    position: unset;
+    min-height: 10px;
+    width: 100vw;
+  }
+  .layout-template {
+    margin: 3em;
+    width: 300px;
+  }
+}/*# sourceMappingURL=style.css.map */
