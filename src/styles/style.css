@@ -43,7 +43,10 @@ body {
   margin-top: 1.25em;
   padding: 1.25em;
 }
-.layout-template__badge {
+.layout-template__title-badge {
+  text-wrap: nowrap;
+  text-overflow: clip;
+  overflow: hidden;
   position: absolute;
   font-size: 0.875rem;
   font-weight: 500;
@@ -61,7 +64,6 @@ body {
   height: 100%;
   background-size: cover;
   background-position: center;
-  cursor: pointer;
 }
 .layout-template .form {
   grid-template-rows: 1.2rem minmax(5rem, 10rem) minmax(175px, auto) 30px;
@@ -70,6 +72,13 @@ body {
 .layout-template .form .image-display {
   position: relative;
   background-color: #e2b6a7;
+  cursor: pointer;
+}
+.layout-template .form .image-display .form__label-text {
+  position: absolute;
+  top: 60%;
+  right: 50%;
+  transform: translateX(50%);
 }
 .layout-template .form label {
   grid-area: upload;
@@ -128,25 +137,29 @@ body {
 .layout-template .form button,
 .layout-template .render button {
   grid-area: button;
-  justify-self: end;
-  width: -moz-fit-content;
-  width: fit-content;
-  font-weight: bold;
-  color: #212121;
-  background-color: #e1e1e1;
-  border-radius: unset;
-  box-shadow: none;
+}
+.layout-template .form .form__title,
+.layout-template .form .render__title,
+.layout-template .form .form__description,
+.layout-template .form .render__description,
+.layout-template .render .form__title,
+.layout-template .render .render__title,
+.layout-template .render .form__description,
+.layout-template .render .render__description {
+  width: 100%;
+  text-overflow: clip;
+  overflow: hidden;
 }
 .layout-template .form .form__title,
 .layout-template .form .render__title,
 .layout-template .render .form__title,
 .layout-template .render .render__title {
-  height: 1.5em;
-  text-wrap: nowrap;
   grid-area: title;
   font-size: 1.2rem;
-  font-weight: bold;
   color: #c56e4f;
+  font-weight: bold;
+  text-wrap: nowrap;
+  height: 1.5em;
 }
 .layout-template .form .form__description,
 .layout-template .form .render__description,

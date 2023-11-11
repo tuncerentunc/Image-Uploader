@@ -1,6 +1,5 @@
 import React from "react";
 import "./styles/style.css";
-import { LayoutTemplate } from "./components/LayoutTemplate";
 import { Form } from "./components/Form";
 import { RenderData } from "./components/RenderData";
 
@@ -9,15 +8,11 @@ const App: React.FC = () => {
 
     return (
         <div className="app__container">
-            <LayoutTemplate>
-                <Form setRenderApp={setRenderApp} />
-            </LayoutTemplate>
+            <Form setRenderApp={setRenderApp} />
 
             <hr />
 
-            <LayoutTemplate>
-                <RenderData renderApp={renderApp} />
-            </LayoutTemplate>
+            <RenderData renderApp={renderApp} />
         </div>
     );
 };

@@ -25,7 +25,7 @@ const Form: React.FC<FormProps> = ({ setRenderApp }) => {
     const [imageUrl, setImageUrl] = React.useState<string>("");
     const [formData, setFormData] = React.useState<FormState>({
         title: "New title",
-        description: "New description",
+        description: "Description",
         imageFile: null,
     });
 
@@ -55,23 +55,23 @@ const Form: React.FC<FormProps> = ({ setRenderApp }) => {
     }
 
     function handleSubmit() {
-        uploadImageStorage();
-        sendImageInfoDB();
+        uploadImageFileToStorage();
+        uploadImageInfoToDB();
         setFormData({
             title: "New title",
-            description: "New description",
+            description: "Description",
             imageFile: null,
         });
         setImageUrl("");
     }
 
-    function uploadImageStorage() {
+    function uploadImageFileToStorage() {
         if (formData.imageFile) {
             const imageRef = ref(storage, "image/UploadedImage");
-
+            console.log(imageRef);
             // this doesn' work, i still get error when there is no file
             if (imageRef) {
-                deleteImageStorage(imageRef);
+                deleteImageFromStorage(imageRef);
             }
 
             uploadBytes(imageRef, formData.imageFile).then(() => {
@@ -81,7 +81,7 @@ const Form: React.FC<FormProps> = ({ setRenderApp }) => {
         }
     }
 
-    function deleteImageStorage(imageRef: StorageReference) {
+    function deleteImageFromStorage(imageRef: StorageReference) {
         deleteObject(imageRef)
             .then(() => {
                 // File deleted successfully
@@ -91,7 +91,7 @@ const Form: React.FC<FormProps> = ({ setRenderApp }) => {
             });
     }
 
-    function sendImageInfoDB() {
+    function uploadImageInfoToDB() {
         const imageDataRef = dbRef(database, "imageData/");
         set(imageDataRef, formData);
     }
@@ -99,54 +99,65 @@ const Form: React.FC<FormProps> = ({ setRenderApp }) => {
     console.log(formData);
 
     return (
-        <form className="form" onSubmit={(e) => e.preventDefault()}>
-            <textarea
-                className="form__title"
-                placeholder="New Title"
-                name="title"
-                onChange={handleChange}
-                value={formData.title}
-            />
+        <div className="layout-template">
+            <p className="layout-template__title-badge">New Title</p>
 
-            <textarea
-                className="form__description"
-                placeholder="Description"
-                name="description"
-                onChange={handleChange}
-                value={formData.description}
-            />
-
-            <label className="form__label" htmlFor="imageFile">
-                <div
-                    className="image-display"
-                    style={{ backgroundImage: `url('${imageUrl}')` }}>
-                    {!imageUrl && (
-                        <AddIcon
-                            sx={{
-                                position: "absolute",
-                                top: "50%",
-                                right: "50%",
-                                fontSize: "6rem",
-                                transform: "translate(50%, -50%)",
-                            }}
-                        />
-                    )}
-                </div>
-
-                <input
-                    id="imageFile"
-                    className="form__image"
-                    name="imageFile"
-                    type="file"
-                    accept="image/png, image/jpg"
+            <form className="form" onSubmit={(e) => e.preventDefault()}>
+                <textarea
+                    className="form__title"
+                    placeholder="New Title"
+                    name="title"
                     onChange={handleChange}
+                    value={formData.title}
                 />
-            </label>
 
-            <Button variant="contained" onClick={handleSubmit}>
-                SUBMIT
-            </Button>
-        </form>
+                <textarea
+                    className="form__description"
+                    placeholder="Description"
+                    name="description"
+                    onChange={handleChange}
+                    value={formData.description}
+                />
+
+                <label className="form__label" htmlFor="imageFile">
+                    <div
+                        className="image-display"
+                        style={{ backgroundImage: `url('${imageUrl}')` }}>
+                        {!imageUrl && (
+                            <>
+                                <AddIcon
+                                    sx={{
+                                        position: "absolute",
+                                        top: "40%",
+                                        right: "50%",
+                                        fontSize: "6rem",
+                                        transform: "translate(50%, -50%)",
+                                    }}
+                                />
+                                <p className="form__label-text">Add Image</p>
+                            </>
+                        )}
+                    </div>
+
+                    <input
+                        id="imageFile"
+                        className="form__image"
+                        name="imageFile"
+                        type="file"
+                        accept="image/png, image/jpg"
+                        onChange={handleChange}
+                    />
+                </label>
+
+                <Button
+                    color="success"
+                    variant="contained"
+                    disabled={Object.values(formData).some((value) => !value)}
+                    onClick={handleSubmit}>
+                    SUBMIT
+                </Button>
+            </form>
+        </div>
     );
 };
 
