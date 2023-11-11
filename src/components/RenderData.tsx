@@ -14,6 +14,8 @@ const RenderData: React.FC<Props> = ({ renderApp }) => {
         description: "Description",
     });
 
+    console.log("rendered");
+
     React.useEffect(() => {
         getImageInfoFromDB();
         getImageFileFromStorage();

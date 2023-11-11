@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import FileUploadIcon from "@mui/icons-material/FileUpload";
 import { storage, database } from "../firebase";
 import { ref as dbRef, set } from "firebase/database";
 
@@ -68,14 +69,12 @@ const Form: React.FC<FormProps> = ({ setRenderApp }) => {
     function uploadImageFileToStorage() {
         if (formData.imageFile) {
             const imageRef = ref(storage, "image/UploadedImage");
-            console.log(imageRef);
             // this doesn' work, i still get error when there is no file
             if (imageRef) {
                 deleteImageFromStorage(imageRef);
             }
 
             uploadBytes(imageRef, formData.imageFile).then(() => {
-                console.log("Uploaded");
                 setRenderApp((prev) => !prev);
             });
         }
@@ -95,8 +94,6 @@ const Form: React.FC<FormProps> = ({ setRenderApp }) => {
         const imageDataRef = dbRef(database, "imageData/");
         set(imageDataRef, formData);
     }
-
-    console.log(formData);
 
     return (
         <div className="layout-template">
@@ -152,9 +149,11 @@ const Form: React.FC<FormProps> = ({ setRenderApp }) => {
                 <Button
                     color="success"
                     variant="contained"
+                    disableElevation
                     disabled={Object.values(formData).some((value) => !value)}
-                    onClick={handleSubmit}>
-                    SUBMIT
+                    onClick={handleSubmit}
+                    endIcon={<FileUploadIcon />}>
+                    UPLOAD
                 </Button>
             </form>
         </div>
