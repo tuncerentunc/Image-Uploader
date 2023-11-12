@@ -1,7 +1,7 @@
-const initialFormState = {
+const initialFormData = {
     title: "New title",
     description: "Description",
     imageFile: undefined,
 };
 
-export default initialFormState
+export default initialFormData

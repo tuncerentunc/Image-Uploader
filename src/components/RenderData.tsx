@@ -3,7 +3,7 @@ import { storage, database } from "../firebase";
 import { ref as dbRef, onValue } from "firebase/database";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 import { CircularProgress } from "@mui/material";
-import initialFormState from "../variables/initialFormState";
+import initialFormState from "../variables/variables";
 
 type RenderDataProps = {
     getData: boolean;
@@ -16,11 +16,11 @@ const RenderData: React.FC<RenderDataProps> = ({
     isUploading,
     setIsUploading,
 }) => {
-    const [renderedImage, setRenderedImage] = useState("");
+    const [renderedImage, setRenderedImage] = useState(""); // image file url from firebase storage
     const [imageInfo, setImageData] = useState({
         title: "New title",
         description: "Description",
-    });
+    }); // image info from firebase database
 
     console.log("rendered");
 
@@ -40,7 +40,7 @@ const RenderData: React.FC<RenderDataProps> = ({
             if (res.items.length > 0) {
                 getDownloadURL(res.items[0])
                     .then((url) => {
-                        setIsUploading(false);
+                        setIsUploading(false); // when false loading icon and text is not rendered
                         setRenderedImage(url);
                     })
                     .catch((error) => {
@@ -53,6 +53,7 @@ const RenderData: React.FC<RenderDataProps> = ({
     return (
         <div className="layout-template">
             <p className="layout-template__title-badge">
+                {/* if page is refreshed during upload process image won't be upload properly to storage, 'imageInfo && renderedImage' conditions prevents rendering 'title' and 'description' without the image file,  */}
                 {imageInfo && renderedImage
                     ? imageInfo.title
                     : initialFormState.title}

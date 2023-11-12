@@ -4,7 +4,7 @@ import AddIcon from "@mui/icons-material/Add";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import { storage, database } from "../firebase";
 import { ref as dbRef, set } from "firebase/database";
-import initialFormState from "../variables/initialFormState";
+import initialFormState from "../variables/variables";
 
 import {
     ref,
@@ -15,11 +15,11 @@ import {
 
 type FormProps = {
     setgetData: React.Dispatch<React.SetStateAction<boolean>>;
-    isUploading: boolean;
     setIsUploading: React.Dispatch<React.SetStateAction<boolean>>;
+    isUploading: boolean;
 };
 
-type FormData = {
+type initialFormState = {
     title: string;
     description: string;
     imageFile?: Blob;
@@ -30,9 +30,11 @@ const Form: React.FC<FormProps> = ({
     isUploading,
     setIsUploading,
 }) => {
-    const [imageUrl, setImageUrl] = useState<string>("");
-    const [formData, setFormData] = useState<FormData>(initialFormState);
+    const [imageUrl, setImageUrl] = useState<string>(""); // to display locally uploaded image
+    const [formData, setFormData] =
+        useState<initialFormState>(initialFormState);
 
+    // creates url from locally uploaded image file
     React.useEffect(() => {
         if (formData.imageFile) {
             setImageUrl(URL.createObjectURL(formData.imageFile));
@@ -55,20 +57,19 @@ const Form: React.FC<FormProps> = ({
     }
 
     function handleSubmit() {
-        setIsUploading(true);
+        setIsUploading(true); //
         uploadImageFileToStorage();
         uploadImageInfoToDB();
         setFormData(initialFormState);
         setImageUrl("");
     }
 
+    // uploads the local image file to firebase storage
     function uploadImageFileToStorage() {
         if (formData.imageFile) {
             const imageRef = ref(storage, "image/UploadedImage");
-            if (imageRef) {
-                deleteImageFromStorage(imageRef);
-            }
 
+            deleteImageFromStorage(imageRef);
             uploadBytes(imageRef, formData.imageFile).then(() => {
                 setgetData((prev) => !prev);
             });
@@ -85,6 +86,7 @@ const Form: React.FC<FormProps> = ({
             });
     }
 
+    // saves the title and description to firebase database
     function uploadImageInfoToDB() {
         const imageInfoRef = dbRef(database, "imageInfo/");
         set(imageInfoRef, formData);
@@ -115,20 +117,25 @@ const Form: React.FC<FormProps> = ({
                     <div
                         className="image-display"
                         style={{ backgroundImage: `url('${imageUrl}')` }}>
-                        {!imageUrl && (
-                            <>
-                                <AddIcon
-                                    sx={{
-                                        position: "absolute",
-                                        top: "40%",
-                                        right: "50%",
-                                        fontSize: "6rem",
-                                        transform: "translate(50%, -50%)",
-                                    }}
-                                />
-                                <p className="form__label-text">Add Image</p>
-                            </>
-                        )}
+                        {
+                            // if image is uploaded locally plus icon and text is not rendered
+                            !imageUrl && (
+                                <>
+                                    <AddIcon
+                                        sx={{
+                                            position: "absolute",
+                                            top: "40%",
+                                            right: "50%",
+                                            fontSize: "6rem",
+                                            transform: "translate(50%, -50%)",
+                                        }}
+                                    />
+                                    <p className="form__label-text">
+                                        Add Image
+                                    </p>
+                                </>
+                            )
+                        }
                     </div>
 
                     <input
@@ -137,6 +144,7 @@ const Form: React.FC<FormProps> = ({
                         name="imageFile"
                         type="file"
                         accept="image/png, image/jpg"
+                        // value is needed, otherwise files with the same name won't trigger imageFile state change
                         value=""
                         onChange={handleChange}
                     />
