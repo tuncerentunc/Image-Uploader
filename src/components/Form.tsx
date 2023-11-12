@@ -4,6 +4,7 @@ import AddIcon from "@mui/icons-material/Add";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import { storage, database } from "../firebase";
 import { ref as dbRef, set } from "firebase/database";
+import initialFormState from "../variables/initialFormState";
 
 import {
     ref,
@@ -23,15 +24,9 @@ type FormData = {
     imageFile?: Blob;
 };
 
-const initialState = {
-    title: "New title",
-    description: "Description",
-    imageFile: undefined,
-};
-
 const Form: React.FC<FormProps> = ({ setgetData, setIsUploading }) => {
     const [imageUrl, setImageUrl] = useState<string>("");
-    const [formData, setFormData] = useState<FormData>(initialState);
+    const [formData, setFormData] = useState<FormData>(initialFormState);
 
     React.useEffect(() => {
         if (formData.imageFile) {
@@ -58,7 +53,7 @@ const Form: React.FC<FormProps> = ({ setgetData, setIsUploading }) => {
         setIsUploading(true);
         uploadImageFileToStorage();
         uploadImageInfoToDB();
-        setFormData(initialState);
+        setFormData(initialFormState);
         setImageUrl("");
     }
 

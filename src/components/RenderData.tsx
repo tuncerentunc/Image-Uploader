@@ -3,6 +3,7 @@ import { storage, database } from "../firebase";
 import { ref as dbRef, onValue } from "firebase/database";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 import { CircularProgress } from "@mui/material";
+import initialFormState from "../variables/initialFormState";
 
 type RenderDataProps = {
     getData: boolean;
@@ -16,7 +17,6 @@ const RenderData: React.FC<RenderDataProps> = ({
     setIsUploading,
 }) => {
     const [renderedImage, setRenderedImage] = useState("");
-
     const [imageInfo, setImageData] = useState({
         title: "New title",
         description: "Description",
@@ -53,14 +53,16 @@ const RenderData: React.FC<RenderDataProps> = ({
     return (
         <div className="layout-template">
             <p className="layout-template__title-badge">
-                {imageInfo ? imageInfo.title : "New title"}
+                {imageInfo ? imageInfo.title : initialFormState.title}
             </p>
             <div className="render">
                 <p className="render__title">
-                    {imageInfo ? imageInfo.title : "New title"}
+                    {imageInfo ? imageInfo.title : initialFormState.title}
                 </p>
                 <p className="render__description">
-                    {imageInfo ? imageInfo.description : "Description"}
+                    {imageInfo
+                        ? imageInfo.description
+                        : initialFormState.description}
                 </p>
 
                 {!isUploading ? (
