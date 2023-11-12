@@ -46,9 +46,12 @@ const Form: React.FC<FormProps> = ({ setgetData, setIsUploading }) => {
 
         const imageFile = (event.target as HTMLInputElement).files;
 
-        setFormData({
-            ...formData,
-            [name]: name === "imageFile" && imageFile ? imageFile[0] : value,
+        setFormData((prev) => {
+            return {
+                ...prev,
+                [name]:
+                    name === "imageFile" && imageFile ? imageFile[0] : value,
+            };
         });
     }
 

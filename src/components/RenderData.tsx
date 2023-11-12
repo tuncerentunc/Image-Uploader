@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { storage, database } from "../firebase";
 import { ref as dbRef, onValue } from "firebase/database";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
+import { CircularProgress } from "@mui/material";
 
 type RenderDataProps = {
     getData: boolean;
@@ -61,7 +62,10 @@ const RenderData: React.FC<RenderDataProps> = ({
                             backgroundImage: `url(${renderedImage})`,
                         }}></div>
                 ) : (
-                    <div>Loading</div>
+                    <div className="loading">
+                        <CircularProgress />
+                        <p>Loading...</p>
+                    </div>
                 )}
             </div>
         </div>

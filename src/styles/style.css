@@ -84,6 +84,13 @@ body {
 .layout-template .render .image-display {
   background-color: #e1e1e1;
 }
+.layout-template .render .loading {
+  grid-area: upload;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .layout-template .form,
 .layout-template .render {
   display: grid;

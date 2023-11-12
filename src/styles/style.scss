@@ -113,6 +113,14 @@ body {
         .image-display {
             background-color: #e1e1e1;
         }
+
+        .loading {
+            grid-area: upload;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
     }
 
     .form,
