@@ -67,12 +67,16 @@ body {
   position: relative;
   background-color: #e2b6a7;
   cursor: pointer;
+  transition: 300ms;
 }
 .layout-template .form .image-display .form__label-text {
   position: absolute;
   top: 60%;
   right: 50%;
   transform: translateX(50%);
+}
+.layout-template .form .image-display:hover {
+  scale: 1.02;
 }
 .layout-template .form label {
   grid-area: upload;

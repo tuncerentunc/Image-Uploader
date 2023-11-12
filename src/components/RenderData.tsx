@@ -25,8 +25,8 @@ const RenderData: React.FC<RenderDataProps> = ({
     console.log("rendered");
 
     useEffect(() => {
-        getImageInfoFromDB();
         getImageFileFromStorage();
+        getImageInfoFromDB();
     }, [getData]);
 
     function getImageInfoFromDB() {
@@ -53,14 +53,18 @@ const RenderData: React.FC<RenderDataProps> = ({
     return (
         <div className="layout-template">
             <p className="layout-template__title-badge">
-                {imageInfo ? imageInfo.title : initialFormState.title}
+                {imageInfo && renderedImage
+                    ? imageInfo.title
+                    : initialFormState.title}
             </p>
             <div className="render">
                 <p className="render__title">
-                    {imageInfo ? imageInfo.title : initialFormState.title}
+                    {imageInfo && renderedImage
+                        ? imageInfo.title
+                        : initialFormState.title}
                 </p>
                 <p className="render__description">
-                    {imageInfo
+                    {imageInfo && renderedImage
                         ? imageInfo.description
                         : initialFormState.description}
                 </p>

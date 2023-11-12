@@ -86,6 +86,7 @@ body {
             position: relative;
             background-color: #e2b6a7;
             cursor: pointer;
+            transition: 300ms;
 
             .form__label-text {
                 position: absolute;
@@ -93,6 +94,10 @@ body {
                 right: 50%;
                 transform: translateX(50%);
             }
+        }
+
+        .image-display:hover {
+            scale: 1.02;
         }
 
         label {

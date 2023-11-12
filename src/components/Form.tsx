@@ -143,6 +143,7 @@ const Form: React.FC<FormProps> = ({
                 </label>
 
                 <Button
+                    sx={{ borderRadius: "0" }}
                     color="success"
                     variant="contained"
                     disableElevation
