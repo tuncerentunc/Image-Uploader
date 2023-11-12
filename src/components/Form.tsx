@@ -15,6 +15,7 @@ import {
 
 type FormProps = {
     setgetData: React.Dispatch<React.SetStateAction<boolean>>;
+    isUploading: boolean;
     setIsUploading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
@@ -24,7 +25,11 @@ type FormData = {
     imageFile?: Blob;
 };
 
-const Form: React.FC<FormProps> = ({ setgetData, setIsUploading }) => {
+const Form: React.FC<FormProps> = ({
+    setgetData,
+    isUploading,
+    setIsUploading,
+}) => {
     const [imageUrl, setImageUrl] = useState<string>("");
     const [formData, setFormData] = useState<FormData>(initialFormState);
 
@@ -60,7 +65,6 @@ const Form: React.FC<FormProps> = ({ setgetData, setIsUploading }) => {
     function uploadImageFileToStorage() {
         if (formData.imageFile) {
             const imageRef = ref(storage, "image/UploadedImage");
-            // this doesn' work, i still get error when there is no file
             if (imageRef) {
                 deleteImageFromStorage(imageRef);
             }
@@ -142,7 +146,10 @@ const Form: React.FC<FormProps> = ({ setgetData, setIsUploading }) => {
                     color="success"
                     variant="contained"
                     disableElevation
-                    disabled={Object.values(formData).some((value) => !value)}
+                    disabled={
+                        Object.values(formData).some((value) => !value) ||
+                        isUploading
+                    }
                     onClick={handleSubmit}
                     endIcon={<FileUploadIcon />}>
                     UPLOAD

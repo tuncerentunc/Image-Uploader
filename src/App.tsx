@@ -9,7 +9,11 @@ const App: React.FC = () => {
 
     return (
         <div className="app__container">
-            <Form setgetData={setgetData} setIsUploading={setIsUploading} />
+            <Form
+                setgetData={setgetData}
+                isUploading={isUploading}
+                setIsUploading={setIsUploading}
+            />
 
             <hr />
 
