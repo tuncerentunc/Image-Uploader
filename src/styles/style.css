@@ -1,22 +1,19 @@
-*,
-*::before,
-*::after {
+* {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html,
 body {
-  height: 1px;
-  min-height: 100%;
+  height: 100%;
   font-family: "Roboto", sans-serif;
   color: #4f4f4f;
-  margin: 0;
   overflow-x: hidden;
 }
 
 #root {
-  height: 1px;
-  min-height: 100%;
+  height: 100%;
 }
 
 .app__container {
@@ -30,8 +27,6 @@ body {
   top: 0;
   width: 10px;
   height: 100%;
-  margin: 0;
-  padding: 0;
   background-color: #c4c4c4;
   border: 0 solid black;
 }
@@ -52,7 +47,6 @@ body {
   font-weight: 500;
   width: 50%;
   height: 50%;
-  margin: 0;
   padding: 0.625em 1.5em;
   border: 2px solid #4f4f4f;
   border-radius: 1rem;
@@ -100,10 +94,6 @@ body {
   border: 2px solid #4f4f4f;
   border-radius: 1rem;
   background-color: white;
-}
-.layout-template .form p,
-.layout-template .render p {
-  margin: 0;
 }
 .layout-template .form textarea,
 .layout-template .render textarea {

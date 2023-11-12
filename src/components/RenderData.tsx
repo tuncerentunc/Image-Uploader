@@ -1,39 +1,44 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { storage, database } from "../firebase";
 import { ref as dbRef, onValue } from "firebase/database";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 
-type Props = {
-    renderApp: boolean;
+type RenderDataProps = {
+    getData: boolean;
+    isUploading: boolean;
+    setIsUploading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const RenderData: React.FC<Props> = ({ renderApp }) => {
-    const [renderedImage, setRenderedImage] = React.useState("");
-    const [imageData, setImageData] = React.useState({
+const RenderData: React.FC<RenderDataProps> = ({
+    getData,
+    isUploading,
+    setIsUploading,
+}) => {
+    const [renderedImage, setRenderedImage] = useState("");
+
+    const [imageInfo, setImageData] = useState({
         title: "New Title",
         description: "Description",
     });
 
     console.log("rendered");
 
-    React.useEffect(() => {
+    useEffect(() => {
         getImageInfoFromDB();
         getImageFileFromStorage();
-    }, [renderApp]);
+    }, [getData]);
 
     function getImageInfoFromDB() {
-        const imageDataRef = dbRef(database, "imageData");
-        onValue(imageDataRef, (snapshot) => {
-            const data = snapshot.val();
-            setImageData(data);
+        onValue(dbRef(database, "imageInfo"), (snapshot) => {
+            setImageData(snapshot.val());
         });
     }
 
     function getImageFileFromStorage() {
-        const imageRef = ref(storage, "image/");
-        listAll(imageRef).then((res) => {
+        listAll(ref(storage, "image/")).then((res) => {
             getDownloadURL(res.items[0])
                 .then((url) => {
+                    setIsUploading(false);
                     setRenderedImage(url);
                 })
                 .catch((error) => {
@@ -44,19 +49,23 @@ const RenderData: React.FC<Props> = ({ renderApp }) => {
 
     return (
         <div className="layout-template">
-            <p className="layout-template__title-badge">{imageData.title}</p>
+            <p className="layout-template__title-badge">{imageInfo.title}</p>
             <div className="render">
-                <p className="render__title">{imageData.title}</p>
-                <p className="render__description">{imageData.description}</p>
+                <p className="render__title">{imageInfo.title}</p>
+                <p className="render__description">{imageInfo.description}</p>
 
-                <div
-                    className="image-display"
-                    style={{
-                        backgroundImage: `url(${renderedImage})`,
-                    }}></div>
+                {!isUploading ? (
+                    <div
+                        className="image-display"
+                        style={{
+                            backgroundImage: `url(${renderedImage})`,
+                        }}></div>
+                ) : (
+                    <div>Loading</div>
+                )}
             </div>
         </div>
     );
 };
 
-export { RenderData };
+export default RenderData;

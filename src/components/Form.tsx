@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
@@ -13,22 +13,25 @@ import {
 } from "firebase/storage";
 
 type FormProps = {
-    setRenderApp: React.Dispatch<React.SetStateAction<boolean>>;
+    setgetData: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsUploading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 type FormState = {
     title: string;
     description: string;
-    imageFile: Blob | null;
+    imageFile?: Blob;
 };
 
-const Form: React.FC<FormProps> = ({ setRenderApp }) => {
-    const [imageUrl, setImageUrl] = React.useState<string>("");
-    const [formData, setFormData] = React.useState<FormState>({
-        title: "New title",
-        description: "Description",
-        imageFile: null,
-    });
+const initialState = {
+    title: "New title",
+    description: "Description",
+    imageFile: undefined,
+};
+
+const Form: React.FC<FormProps> = ({ setgetData, setIsUploading }) => {
+    const [imageUrl, setImageUrl] = useState<string>("");
+    const [formData, setFormData] = useState<FormState>(initialState);
 
     React.useEffect(() => {
         if (formData.imageFile) {
@@ -41,28 +44,19 @@ const Form: React.FC<FormProps> = ({ setRenderApp }) => {
     ) {
         const { name, value } = event.target;
 
-        setFormData((prev) => {
-            const imageFile = (event.target as HTMLInputElement).files;
-            return name === "imageFile" && imageFile
-                ? {
-                      ...prev,
-                      [name]: imageFile[0],
-                  }
-                : {
-                      ...prev,
-                      [name]: value,
-                  };
+        const imageFile = (event.target as HTMLInputElement).files;
+
+        setFormData({
+            ...formData,
+            [name]: name === "imageFile" && imageFile ? imageFile[0] : value,
         });
     }
 
     function handleSubmit() {
+        setIsUploading(true);
         uploadImageFileToStorage();
         uploadImageInfoToDB();
-        setFormData({
-            title: "New title",
-            description: "Description",
-            imageFile: null,
-        });
+        setFormData(initialState);
         setImageUrl("");
     }
 
@@ -75,7 +69,7 @@ const Form: React.FC<FormProps> = ({ setRenderApp }) => {
             }
 
             uploadBytes(imageRef, formData.imageFile).then(() => {
-                setRenderApp((prev) => !prev);
+                setgetData((prev) => !prev);
             });
         }
     }
@@ -91,8 +85,8 @@ const Form: React.FC<FormProps> = ({ setRenderApp }) => {
     }
 
     function uploadImageInfoToDB() {
-        const imageDataRef = dbRef(database, "imageData/");
-        set(imageDataRef, formData);
+        const imageInfoRef = dbRef(database, "imageInfo/");
+        set(imageInfoRef, formData);
     }
 
     return (
@@ -160,4 +154,4 @@ const Form: React.FC<FormProps> = ({ setRenderApp }) => {
     );
 };
 
-export { Form };
+export default Form;
