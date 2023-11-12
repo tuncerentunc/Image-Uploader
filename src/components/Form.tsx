@@ -17,7 +17,7 @@ type FormProps = {
     setIsUploading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-type FormState = {
+type FormData = {
     title: string;
     description: string;
     imageFile?: Blob;
@@ -31,7 +31,7 @@ const initialState = {
 
 const Form: React.FC<FormProps> = ({ setgetData, setIsUploading }) => {
     const [imageUrl, setImageUrl] = useState<string>("");
-    const [formData, setFormData] = useState<FormState>(initialState);
+    const [formData, setFormData] = useState<FormData>(initialState);
 
     React.useEffect(() => {
         if (formData.imageFile) {
@@ -43,7 +43,6 @@ const Form: React.FC<FormProps> = ({ setgetData, setIsUploading }) => {
         event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
     ) {
         const { name, value } = event.target;
-
         const imageFile = (event.target as HTMLInputElement).files;
 
         setFormData((prev) => {
@@ -83,7 +82,7 @@ const Form: React.FC<FormProps> = ({ setgetData, setIsUploading }) => {
                 // File deleted successfully
             })
             .catch(() => {
-                console.log("Something went wrong");
+                console.log("Something went wrong, can't delete file");
             });
     }
 
@@ -139,6 +138,7 @@ const Form: React.FC<FormProps> = ({ setgetData, setIsUploading }) => {
                         name="imageFile"
                         type="file"
                         accept="image/png, image/jpg"
+                        value=""
                         onChange={handleChange}
                     />
                 </label>

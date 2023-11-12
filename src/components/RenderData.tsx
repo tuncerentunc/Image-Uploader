@@ -18,7 +18,7 @@ const RenderData: React.FC<RenderDataProps> = ({
     const [renderedImage, setRenderedImage] = useState("");
 
     const [imageInfo, setImageData] = useState({
-        title: "New Title",
+        title: "New title",
         description: "Description",
     });
 
@@ -37,23 +37,31 @@ const RenderData: React.FC<RenderDataProps> = ({
 
     function getImageFileFromStorage() {
         listAll(ref(storage, "image/")).then((res) => {
-            getDownloadURL(res.items[0])
-                .then((url) => {
-                    setIsUploading(false);
-                    setRenderedImage(url);
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
+            if (res.items.length > 0) {
+                getDownloadURL(res.items[0])
+                    .then((url) => {
+                        setIsUploading(false);
+                        setRenderedImage(url);
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
         });
     }
 
     return (
         <div className="layout-template">
-            <p className="layout-template__title-badge">{imageInfo.title}</p>
+            <p className="layout-template__title-badge">
+                {imageInfo ? imageInfo.title : "New title"}
+            </p>
             <div className="render">
-                <p className="render__title">{imageInfo.title}</p>
-                <p className="render__description">{imageInfo.description}</p>
+                <p className="render__title">
+                    {imageInfo ? imageInfo.title : "New title"}
+                </p>
+                <p className="render__description">
+                    {imageInfo ? imageInfo.description : "Description"}
+                </p>
 
                 {!isUploading ? (
                     <div
