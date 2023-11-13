@@ -70,7 +70,10 @@ body {
 
     .form {
         grid-template-rows:
-            1.2rem minmax(5rem, 10rem) minmax($image-min-height, auto)
+            $title-grid-height $description-grid-height minmax(
+                $image-min-height,
+                auto
+            )
             30px;
         grid-template-areas:
             "title title"
@@ -95,7 +98,7 @@ body {
     }
 
     .render {
-        grid-template-rows: 1.2rem minmax(5rem, 10rem) minmax(
+        grid-template-rows: $title-grid-height $description-grid-height minmax(
                 $image-min-height + 45px,
                 auto
             );
@@ -127,6 +130,7 @@ body {
         background-color: white;
 
         textarea {
+            color: inherit;
             font-family: inherit;
             background-color: unset;
             border: unset;

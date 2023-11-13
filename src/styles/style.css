@@ -111,6 +111,7 @@ body {
 }
 .layout-template .form textarea,
 .layout-template .render textarea {
+  color: inherit;
   font-family: inherit;
   background-color: unset;
   border: unset;
