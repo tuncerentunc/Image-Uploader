@@ -76,13 +76,9 @@ const Form: React.FC<FormProps> = ({
     }
 
     function deleteImageFromStorage(imageRef: StorageReference) {
-        deleteObject(imageRef)
-            .then(() => {
-                // File deleted successfully
-            })
-            .catch(() => {
-                console.log("Something went wrong, can't delete file");
-            });
+        deleteObject(imageRef).catch(() => {
+            console.log("Something went wrong, can't delete file");
+        });
     }
 
     // saves the title and description to firebase database
