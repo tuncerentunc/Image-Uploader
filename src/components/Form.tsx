@@ -133,7 +133,7 @@ const Form: React.FC<FormProps> = ({
                         name="imageFile"
                         type="file"
                         accept="image/png, image/jpg"
-                        // value is needed, otherwise files with the same name won't trigger imageFile state change
+                        // value is needed, otherwise uploading files with the same name won't trigger formData.imageFile dependency
                         value=""
                         onChange={handleChange}
                     />
