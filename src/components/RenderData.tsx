@@ -40,7 +40,7 @@ const RenderData: React.FC<RenderDataProps> = ({
             if (res.items.length > 0) {
                 getDownloadURL(res.items[0])
                     .then((url) => {
-                        setIsUploading(false); // when false loading icon and text is not rendered
+                        setIsUploading(false); // when false, loading icon and text is not rendered
                         setRenderedImage(url);
                     })
                     .catch((error) => {
@@ -83,17 +83,17 @@ const RenderData: React.FC<RenderDataProps> = ({
                     </p>
                 </Tooltip>
 
-                {!isUploading ? (
+                {isUploading ? (
+                    <div className="loading">
+                        <CircularProgress />
+                        <p>Loading...</p>
+                    </div>
+                ) : (
                     <div
                         className="image-display"
                         style={{
                             backgroundImage: `url(${renderedImage})`,
                         }}></div>
-                ) : (
-                    <div className="loading">
-                        <CircularProgress />
-                        <p>Loading...</p>
-                    </div>
                 )}
             </div>
         </div>

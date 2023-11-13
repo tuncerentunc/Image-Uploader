@@ -4,8 +4,10 @@ import Form from "./components/Form";
 import RenderData from "./components/RenderData";
 
 const App: React.FC = () => {
-    const [getData, setgetData] = React.useState(true); // to render RenderData after submitting form
-    const [isUploading, setIsUploading] = React.useState(false); // renders loading screen if true
+    // to render RenderData after submitting form, each switch triggers a render - the value doesn't matter
+    const [getData, setgetData] = React.useState(true);
+    // renders loading screen if true
+    const [isUploading, setIsUploading] = React.useState(false);
 
     return (
         <div className="app__container">

@@ -40,6 +40,7 @@ const Form: React.FC<FormProps> = ({
         }
     }, [formData.imageFile]);
 
+    // updates formData state
     function handleChange(
         event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
     ) {
@@ -68,6 +69,7 @@ const Form: React.FC<FormProps> = ({
         if (formData.imageFile) {
             const imageRef = ref(storage, "image/UploadedImage");
 
+            // deletes the old one and then uploads the new image
             deleteImageFromStorage(imageRef);
             uploadBytes(imageRef, formData.imageFile).then(() => {
                 setgetData((prev) => !prev);
