@@ -80,7 +80,11 @@ const RenderData: React.FC<RenderDataProps> = ({
                 </Tooltip>
 
                 {!isUploading ? (
-                    <img className="image-display" src={`${renderedImage}`} width={100%}/>
+                    <div
+                        className="image-display"
+                        style={{
+                            backgroundImage: `url(${renderedImage})`,
+                        }}></div>
                 ) : (
                     <div className="loading">
                         <CircularProgress />
