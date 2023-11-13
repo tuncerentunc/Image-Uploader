@@ -22,8 +22,6 @@ const RenderData: React.FC<RenderDataProps> = ({
         description: "Description",
     }); // image info from firebase database
 
-    console.log("rendered");
-
     useEffect(() => {
         getImageFileFromStorage();
         getImageInfoFromDB();
