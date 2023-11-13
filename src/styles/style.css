@@ -56,6 +56,9 @@ body {
 .layout-template .image-display {
   grid-area: upload;
   height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
   background-size: cover;
   background-position: center;
 }
@@ -149,6 +152,9 @@ body {
 .layout-template .render .render__title,
 .layout-template .render .form__description,
 .layout-template .render .render__description {
+  word-break: break-word;
+  -webkit-hyphens: auto;
+          hyphens: auto;
   width: 100%;
   text-overflow: clip;
   overflow: hidden;
@@ -157,11 +163,11 @@ body {
 .layout-template .form .render__title,
 .layout-template .render .form__title,
 .layout-template .render .render__title {
+  line-height: 1.6rem;
   grid-area: title;
   font-size: 1.2rem;
   color: #c56e4f;
   font-weight: bold;
-  text-wrap: nowrap;
   height: 1.5em;
 }
 .layout-template .form .form__description,

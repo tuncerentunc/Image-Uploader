@@ -67,6 +67,8 @@ body {
     .image-display {
         grid-area: upload;
         height: 100%;
+        width: 100%;
+        object-fit: cover;
         background-size: cover;
         background-position: center;
         // border-radius: 1rem;
@@ -181,6 +183,8 @@ body {
         .render__title,
         .form__description,
         .render__description {
+            word-break: break-word;
+            hyphens: auto;
             width: 100%;
             text-overflow: clip;
             overflow: hidden;
@@ -188,11 +192,11 @@ body {
 
         .form__title,
         .render__title {
+            line-height: 1.6rem;
             grid-area: title;
             font-size: 1.2rem;
             color: #c56e4f;
             font-weight: bold;
-            text-wrap: nowrap;
             height: 1.5em;
         }
 
