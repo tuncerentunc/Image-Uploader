@@ -4,7 +4,7 @@ import AddIcon from "@mui/icons-material/Add";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import { storage, database } from "../firebase";
 import { ref as dbRef, set } from "firebase/database";
-import initialFormState from "../variables/variables";
+import initialFormData from "../variables/variables";
 
 import {
     ref,
@@ -19,7 +19,7 @@ type FormProps = {
     isUploading: boolean;
 };
 
-type initialFormState = {
+type initialFormData = {
     title: string;
     description: string;
     imageFile?: Blob;
@@ -31,8 +31,7 @@ const Form: React.FC<FormProps> = ({
     setIsUploading,
 }) => {
     const [imageUrl, setImageUrl] = useState<string>(""); // to display locally uploaded image
-    const [formData, setFormData] =
-        useState<initialFormState>(initialFormState);
+    const [formData, setFormData] = useState<initialFormData>(initialFormData);
 
     // creates url from locally uploaded image file
     React.useEffect(() => {
@@ -57,10 +56,10 @@ const Form: React.FC<FormProps> = ({
     }
 
     function handleSubmit() {
-        setIsUploading(true); //
+        setIsUploading(true); // when true, loading icon and text is rendered
         uploadImageFileToStorage();
         uploadImageInfoToDB();
-        setFormData(initialFormState);
+        setFormData(initialFormData);
         setImageUrl("");
     }
 
@@ -156,6 +155,7 @@ const Form: React.FC<FormProps> = ({
                     variant="contained"
                     disableElevation
                     disabled={
+                        // submit button is disabled when an upload is progress-to prevent 2 uploads at same time- or one of the fields is empty.
                         Object.values(formData).some((value) => !value) ||
                         isUploading
                     }

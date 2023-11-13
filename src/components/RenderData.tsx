@@ -3,7 +3,7 @@ import { storage, database } from "../firebase";
 import { ref as dbRef, onValue } from "firebase/database";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 import { CircularProgress } from "@mui/material";
-import initialFormState from "../variables/variables";
+import initialFormData from "../variables/variables";
 
 type RenderDataProps = {
     getData: boolean;
@@ -56,18 +56,18 @@ const RenderData: React.FC<RenderDataProps> = ({
                 {/* if page is refreshed during upload process image won't be upload properly to storage, 'imageInfo && renderedImage' conditions prevents rendering 'title' and 'description' without the image file,  */}
                 {imageInfo && renderedImage
                     ? imageInfo.title
-                    : initialFormState.title}
+                    : initialFormData.title}
             </p>
             <div className="render">
                 <p className="render__title">
                     {imageInfo && renderedImage
                         ? imageInfo.title
-                        : initialFormState.title}
+                        : initialFormData.title}
                 </p>
                 <p className="render__description">
                     {imageInfo && renderedImage
                         ? imageInfo.description
-                        : initialFormState.description}
+                        : initialFormData.description}
                 </p>
 
                 {!isUploading ? (
