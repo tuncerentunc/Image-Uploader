@@ -145,7 +145,7 @@ const Form: React.FC<FormProps> = ({
                     variant="contained"
                     disableElevation
                     disabled={
-                        // submit button is disabled when an upload is progress -to prevent 2 uploads at same time-,
+                        // submit button is disabled when an upload is in progress -to prevent 2 uploads at same time-,
                         //  or when one of the fields is empty.
                         Object.values(formData).some((value) => !value) ||
                         isUploading
