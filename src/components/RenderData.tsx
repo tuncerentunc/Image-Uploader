@@ -60,7 +60,11 @@ const RenderData: React.FC<RenderDataProps> = ({
                     : initialFormData.title}
             </p>
             <div className="render">
-                <Tooltip title={`${imageInfo.title}`} arrow placement="left">
+                {/* {if content overflows it can be read by hovering over the content and revealing the tooltips} */}
+                <Tooltip
+                    title={imageInfo && `${imageInfo.title}`}
+                    arrow
+                    placement="left">
                     <p className="render__title">
                         {imageInfo && renderedImage
                             ? imageInfo.title
@@ -69,7 +73,7 @@ const RenderData: React.FC<RenderDataProps> = ({
                 </Tooltip>
 
                 <Tooltip
-                    title={`${imageInfo.description}`}
+                    title={imageInfo && `${imageInfo.description}`}
                     arrow
                     placement="left">
                     <p className="render__description">
