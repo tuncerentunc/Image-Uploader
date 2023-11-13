@@ -120,15 +120,7 @@ const Form: React.FC<FormProps> = ({
                             // if image is uploaded locally plus icon and text is not rendered
                             !imageUrl && (
                                 <>
-                                    <AddIcon
-                                        sx={{
-                                            position: "absolute",
-                                            top: "40%",
-                                            right: "50%",
-                                            fontSize: "6rem",
-                                            transform: "translate(50%, -50%)",
-                                        }}
-                                    />
+                                    <AddIcon sx={{ fontSize: "6rem" }} />
                                     <p className="form__label-text">
                                         Add Image
                                     </p>
